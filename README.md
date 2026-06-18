@@ -1,48 +1,84 @@
-<img src="app/src/main/ic_launcher-playstore.png" alt="raymob icon" width="256" height="256">
+## 🎮 Raylib Mobile Game — Android
 
-# raymob [![Targeting raylib 5.5+](https://img.shields.io/badge/raylib-5.5+-3DDC84)](https://raylib.com) [![Supported Platforms](https://img.shields.io/badge/Platform-Android-3DDC84)](https://developer.android.com/) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![License](https://img.shields.io/badge/license-zlib%2Flibpng-blue.svg)](LICENSE)
+A 2D Android game built with Raylib and C++, using **raymob** as the compatibility layer for Android. You control a circle with an orbiting satellite that acts as an attack hitbox — drag your finger to move and strike enemies.
 
-raymob is a simple implementation of [raylib](https://www.raylib.com/) for Android.
+ **Looking for the desktop (PC) version?** It is in a separate repository → https://github.com/kevinnach0/Orbit-Defender-PC
 
-## Prerequisites
+---
 
-**You will need SDK API 34 and NDK r23 (or higher, compatible with CMake 3.30.3).**
+##  How to Play
 
-If you already have this version of SDK and NDK without having Android Studio, you should still be able to compile the project using `gradlew.bat` for Windows or `gradlew` for Linux or MacOS.
+* **Move:** Drag your finger across the screen to move your circle toward your touch point.
+* **Attack:** While dragging, a red satellite orbits around you — this is your attack hitbox.
+* **Enemies:** Red enemies move toward you. If they touch you, you lose health.
+* **Combat:** If your satellite touches an enemy, it knocks them away.
+* **Game Over:** If your health reaches zero, the game restarts.
 
-## How to Use?
+---
 
-1. Clone the repository and automatically initialize and update all submodules:
-   ```
-   git clone --recurse-submodules https://github.com/Bigfoot71/raymob.git
-   ```
-2. Open the `gradle.properties` file and fill in the necessary values for your application, such as the app name, package name, version, etc.
-3. That's it! You can start coding your raylib app in the `app/src/main/cpp` directory!
+##  Project Structure
 
-> [!NOTE]
-> Do not modify the instances of `com.raylib.raymob` and `raymob` as they will be automatically replaced during compilation with the information provided in `gradle.properties`.
+```text
+project/
+├── main.cpp              # Main game loop
+└── Game/
+    ├── game.hpp          # AttackPlayer declaration
+    └── game.cpp          # Attack logic, hitbox, and knockback
 
-## Compatibility
+```
 
-By default, the raymob template targets APIs 24 to 34, which corresponds from Android 7.0 to Android 13 (_so 96% of devices according to [apilevels.com](https://apilevels.com/)_).
+---
 
-This project is fully C/C++ compatible for the logical part with raylib and you can also customize the Java part to your wishes.
+##  How to Run on Android
 
-## Additional Features
+You don't need to do anything special — Android Studio handles everything. Just follow these steps:
 
-In this project, you have access to the header file [raymob.h](app/src/main/cpp/deps/raymob/raymob.h), which provides functions for controlling sensors, vibration, and the Android soft keyboard, as well as lower-level functions such as obtaining the `android_app`, manipulating the cache, managing resources, and calling Java functions from your native code.
+### 1. Prerequisites
 
-## Useful Links
+* **Android Studio** installed.
+* **NDK and CMake** installed via Android Studio (SDK Manager → SDK Tools).
+* **Android Phone** with Developer Mode enabled.
+* *Enable Developer Mode:* Go to Settings → About Phone and tap "Build Number" seven times. Then, in Settings → Developer Options, enable **USB Debugging**.
 
-- [AdMob Integration in raymob](https://gist.github.com/Bigfoot71/b3a658458ece93ddcb06f4c78f85076a): Gist demonstrating the integration of AdMob in raymob.
 
-## Contributions
 
-If you believe that your repositories or gists related to raymob can be beneficial to others, please feel free to reach out to me or open a pull request to have them added here.
-I welcome contributions and collaborations to enhance the raymob project and make it more valuable for the community.
+### 2. Connect Your Phone
 
-You can also contribute to the project by reporting issues, suggesting improvements, or helping to document the project. Your input is highly appreciated!
+Connect your phone to your computer via USB cable. When prompted on your phone, choose "File Transfer" or allow "USB Debugging."
 
-### Support
+### 3. Open the Project
 
-If you have any questions or encounter problems when using this implementation, please do not hesitate to ask for help by submitting an issue on this repository, this may help other users.
+Open Android Studio and select **Open** → choose the root folder of the project.
+
+### 4. Run
+
+Press the **▶ Run** button (or `Shift + F10`). Android Studio will compile the project and install it directly onto your phone. The game will appear on your screen in seconds. It's that simple!
+
+---
+
+## 🛠️ Dependencies
+
+| Library | Description |
+| --- | --- |
+| **Raylib** | Simple and powerful 2D/3D graphics engine |
+| **raymob** | Raylib Android compatibility layer |
+| **Android NDK** | Native C++ compiler for Android |
+
+---
+
+## 🖥️ PC Version
+
+This project has a sibling repository designed exclusively for Windows / Linux / macOS, without the Android dependencies or raymob — just pure Raylib.
+👉 **https://github.com/kevinnach0/Orbit-Defender-PC**
+
+The core mechanics are the same, but the PC project is easier to compile and modify if you want to experiment without connecting a phone.
+
+---
+
+##  Technical Notes
+
+* **Language:** The project uses **C++17**.
+* **Collision:** Body collision uses overlap separation with a 38px radius.
+* **Satellite:** The orbital hitbox has a 20px radius and applies a knockback force of 688 px/s.
+* **Damage:** Contact damage has a **0.4-second cooldown** to prevent enemies from draining your health in a single frame.
+* **Physics:** Enemy separation is symmetric — both entities move apart equally when overlapping.
