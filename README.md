@@ -19,11 +19,16 @@ A 2D Android game built with Raylib and C++, using **raymob** as the compatibili
 ##  Project Structure
 
 ```text
-project/
-├── main.cpp              # Main game loop
-└── Game/
-    ├── game.hpp          # AttackPlayer declaration
-    └── game.cpp          # Attack logic, hitbox, and knockback
+Orbit-Defender-Android/
+└── app/
+    └── src/
+        └── main/
+            └── cpp/
+                ├── Engine/           # Game engine files
+                ├── Game/             # Game-specific logic
+                ├── deps/             # External dependencies
+                ├── CMakeLists.txt    # Build configuration
+                └── main.cpp          # Main entry point
 
 ```
 
